@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "microlending-app"
+        DOCKER_TAG = "latest"
+        DEPLOY_ENV = "dev"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yourusername/microlending-app.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${IMAGE_NAME}:${DOCKER_TAG} ."
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh "docker run --rm ${IMAGE_NAME}:${DOCKER_TAG} pytest tests/"
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                // Run ansible playbook to deploy container on EC2
+                sh "ansible-playbook ansible/playbook.yml -i ansible/inventory.ini -e env=${DEPLOY_ENV}"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up Docker containers'
+            sh "docker system prune -f"
+        }
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs!"
+        }
+    }
+}
