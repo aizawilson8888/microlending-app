@@ -30,16 +30,21 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh """
-                echo "$WORKSPACE"
-                ls -l "$WORKSPACE"
-                docker run --rm \
-                  -v \$WORKSPACE:/work/ansible:ro \
-                  -v \$HOME/.ssh:/root/.ssh \
+                // echo "$WORKSPACE"
+                // ls -l "$WORKSPACE"
+                /* docker run --rm \
+                   -v \$WORKSPACE:/work/ansible:ro \
+                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work/ansible \
                   my-ansible-runner:latest \
                   ansible-playbook playbook.yml \
                   -i inventory.ini \
                   -e env=dev
+                */
+                docker run --rm -it -v /var/jenkins_home/workspace/DevOpsPortfolio/microlending-pipeline:/tmp/host my-ansible-runner:latest bash -c "\
+                   mkdir -p /work/ansible && \
+                   cp /tmp/host/ansible/* /work/ansible &&
+                   ansible-playbook /work/ansible/playbook.yml -i work/ansible/inventory.ini -e env=dev"
                 """
              }
         }
