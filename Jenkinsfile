@@ -37,6 +37,8 @@ pipeline {
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work/ansible \
                   my-ansible-runner:latest \
+                  docker cp /var/jenkins_home/workspace/DevOpsPortfolio/microlending-pipeline/ansible/playbook.yml ansible-test:/work/ansible/playbook.yml \
+                  docker cp /var/jenkins_home/workspace/DevOpsPortfolio/microlending-pipeline/ansible/inventory.ini ansible-test:/work/ansible/inventory.ini \
                   ansible-playbook playbook.yml \
                   -i inventory.ini \
                   -e env=dev
