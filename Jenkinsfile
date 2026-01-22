@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh """
                 cd $WORKSPACE/ansible
-                ansible-playbook playbook.yml -i inventory.ini -e env=dev"
+                ansible-playbook playbook.yml -i inventory.ini -e env=dev
                 """
              }
         }
