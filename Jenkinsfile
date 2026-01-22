@@ -30,12 +30,11 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh """
-                docker pull ansible/ansible:latest
                 docker run --rm \
                   -v \$PWD:/work \
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work \
-                  ansible/ansible-runner:latest \
+                  my-ansible-runner \
                   ansible-playbook ansible/playbook.yml \
                   -i ansible/inventory.ini \
                   -e env=dev
