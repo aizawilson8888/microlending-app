@@ -30,6 +30,7 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh """
+                docker pull ansible/ansible:latest
                 docker run --rm \
                   -v \$PWD:/work \
                   -v \$HOME/.ssh:/root/.ssh \
