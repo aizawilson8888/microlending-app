@@ -30,13 +30,15 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh """
+                echo "$WORKSPACE"
+                ls -l "$WORKSPACE"
                 docker run --rm \
                   -v \$WORKSPACE:/work \
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work \
                   my-ansible-runner:latest \
-                  ansible-playbook /ansible/playbook.yml \
-                  -i /ansible/inventory.ini \
+                  ansible-playbook playbook.yml \
+                  -i inventory.ini \
                   -e env=dev
                 """
              }
