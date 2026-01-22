@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh """
                 docker run --rm \
-                  -v \$PWD:/work \
+                  -v \$WORKSPACE:/work \
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work/ansible \
                   my-ansible-runner:latest \
