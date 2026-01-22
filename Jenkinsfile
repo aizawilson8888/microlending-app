@@ -33,10 +33,10 @@ pipeline {
                 docker run --rm \
                   -v \$WORKSPACE:/work \
                   -v \$HOME/.ssh:/root/.ssh \
-                  -w /work/ansible \
+                  -w /work/ \
                   my-ansible-runner:latest \
-                  ansible-playbook playbook.yml \
-                  -i inventory.ini \
+                  ansible-playbook ansible/playbook.yml \
+                  -i ansible/inventory.ini \
                   -e env=dev
                 """
              }
