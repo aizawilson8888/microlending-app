@@ -33,9 +33,9 @@ pipeline {
                 echo "$WORKSPACE"
                 ls -l "$WORKSPACE"
                 docker run --rm \
-                  -v \$WORKSPACE/:/work \
+                  -v \$WORKSPACE:/work \
                   -v \$HOME/.ssh:/root/.ssh \
-                  -w /work \
+                  -w /work/ansible \
                   my-ansible-runner:latest \
                   ansible-playbook playbook.yml \
                   -i inventory.ini \
