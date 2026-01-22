@@ -35,8 +35,8 @@ pipeline {
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work/ansible \
                   my-ansible-runner:latest \
-                  ansible-playbook ansible/playbook.yml \
-                  -i ansible/inventory.ini \
+                  ansible-playbook playbook.yml \
+                  -i inventory.ini \
                   -e env=dev
                 """
              }
