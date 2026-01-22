@@ -33,7 +33,7 @@ pipeline {
                 docker run --rm \
                   -v \$PWD:/work \
                   -v \$HOME/.ssh:/root/.ssh \
-                  -w /work \
+                  -w /work/ansible \
                   my-ansible-runner:latest \
                   ansible-playbook ansible/playbook.yml \
                   -i ansible/inventory.ini \
