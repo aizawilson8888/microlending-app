@@ -27,11 +27,19 @@ pipeline {
             }
         }
 
-        stage('Deploy to EC2') {
+        stage('Deploy with Ansible') {
             steps {
-                // Run ansible playbook to deploy container on EC2
-                sh "ansible-playbook ansible/playbook.yml -i ansible/inventory.ini -e env=${DEPLOY_ENV}"
-            }
+                sh """
+                docker run --rm \
+                  -v \$PWD:/work \
+                  -v \$HOME/.ssh:/root/.ssh \
+                  -w /work \
+                  quay.io/ansible/ansible-runner:stable \
+                  ansible-playbook ansible/playbook.yml \
+                  -i ansible/inventory.ini \
+                  -e env=dev
+                """
+             }
         }
     }
 
