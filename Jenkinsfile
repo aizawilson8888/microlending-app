@@ -34,7 +34,7 @@ pipeline {
                   -v \$PWD:/work \
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work \
-                  ansible/ansible-runner:latest \
+                  ansible/ansible-runner:ubuntu1404 \
                   ansible-playbook ansible/playbook.yml \
                   -i ansible/inventory.ini \
                   -e env=dev
