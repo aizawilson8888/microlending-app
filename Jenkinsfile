@@ -33,7 +33,7 @@ pipeline {
                 echo "$WORKSPACE"
                 ls -l "$WORKSPACE"
                 docker run --rm \
-                  -v \$WORKSPACE:/work \
+                  -v \$WORKSPACE/:/work \
                   -v \$HOME/.ssh:/root/.ssh \
                   -w /work \
                   my-ansible-runner:latest \
