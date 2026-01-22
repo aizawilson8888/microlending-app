@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/microlending-app.git'
+                git branch: 'main', url: 'https://github.com/aizawilson8888/microlending-app.git'
             }
         }
 
